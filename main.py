@@ -33,17 +33,15 @@ APP_SECRET = os.getenv("APP_SECRET","666")
 ALLOWED_MODELS = [
     {"id": "gpt-4o", "name": "chat-gpt4"},
     {"id": "gpt-4o-mini", "name": "chat-gpt4m"},
-    {"id": "o1-preview", "name": "chat-o1-preview"},
     {"id": "o1-mini", "name": "chat-o1-mini"},
-    {"id": "gemini-1.5-flash", "name": "chat-gemini-flash"},
-    {"id": "gemini-1.5-flash-exp-0827", "name": "chat-gemini-flash-exp"},
-    {"id": "gemini-1.5-pro", "name": "chat-gemini-pro"},
-    {"id": "gemini-1.5-pro-002", "name": "chat-gemini-pro-002"},
-    {"id": "claude-3.5-sonnet", "name": "claude-sonnet"},
-    {"id": "claude-3-haiku", "name": "claude-haiku"},
+    {"id": "gemini-1.5-flash-002", "name": "chat-gemini-flash"},
+    {"id": "gemini-1.5-pro-002", "name": "chat-gemini-pro"},
+    {"id": "claude-3-5-sonnet", "name": "claude-sonnet"},
+    {"id": "claude-3-5-haiku", "name": "claude-haiku"},
     {"id": "claude-3-opus", "name": "claude-opus"},
     {"id": "llama-3.1-70b", "name": "llama-3-70b"},
-    {"id": "llama-3.1-8b", "name": "llama-3-8b"},
+    {"id": "llama-3.2-90b-text", "name": "llama-32-90b-text"},
+    {"id": "llama-3.2-90b-vision", "name": "llama-32-90b-vision"},
     {"id": "mistral-large2", "name": "mistral-large"},
 ]
 # 配置CORS
