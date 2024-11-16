@@ -40,7 +40,6 @@ ALLOWED_MODELS = [
     {"id": "gemini-1.5-pro-002", "name": "chat-gemini-pro"},
     {"id": "claude-3-5-sonnet", "name": "claude-sonnet"},
     {"id": "claude-3-5-haiku", "name": "claude-haiku"},
-    {"id": "claude-3-opus", "name": "claude-opus"},
     {"id": "llama-3.1-70b", "name": "llama-3-70b"},
     {"id": "llama-3.2-90b-text", "name": "llama-32-90b-text"},
     {"id": "llama-3.2-90b-vision", "name": "llama-32-90b-vision"},
