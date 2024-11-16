@@ -178,7 +178,9 @@ def generate_cookie():
     initial_info_encoded = quote(initial_info_json, safe='')
 
     # 构建完整的 cookie 字符串
-    cookie = f"_pk_id.1.2e21={pk_id}; _pk_ses.1.2e21=1; initialInfo={initial_info_encoded}; refreshToken={REFRESH_TOKEN}"
+    cookie = f"_pk_id.1.2e21={pk_id}; _pk_ses.1.2e21=1; initialInfo={initial_info_encoded}"
+    if REFRESH_TOKEN:
+        cookie = cookie + f"; refreshToken={REFRESH_TOKEN}"
 
     return cookie
 
