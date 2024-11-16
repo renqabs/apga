@@ -20,6 +20,7 @@ from pydantic import BaseModel
 from starlette.middleware.cors import CORSMiddleware
 from starlette.responses import StreamingResponse, Response
 import demjson3
+import re
 
 logging.basicConfig(
     level=logging.INFO, format="%(asctime)s - %(name)s - %(levelname)s - %(message)s"
@@ -28,8 +29,9 @@ logger = logging.getLogger(__name__)
 
 load_dotenv()
 app = FastAPI()
-BASE_URL = "https://aichatonlineorg.erweima.ai/aichatonline"
+
 APP_SECRET = os.getenv("APP_SECRET","666")
+REFRESH_TOKEN = os.getenv("REFRESH_TOKEN","")
 ALLOWED_MODELS = [
     {"id": "gpt-4o", "name": "chat-gpt4"},
     {"id": "gpt-4o-mini", "name": "chat-gpt4m"},
@@ -177,7 +179,7 @@ def generate_cookie():
     initial_info_encoded = quote(initial_info_json, safe='')
 
     # 构建完整的 cookie 字符串
-    cookie = f"_pk_id.1.2e21={pk_id}; _pk_ses.1.2e21=1; initialInfo={initial_info_encoded}"
+    cookie = f"_pk_id.1.2e21={pk_id}; _pk_ses.1.2e21=1; initialInfo={initial_info_encoded}; refreshToken={REFRESH_TOKEN}"
 
     return cookie
 
@@ -250,6 +252,14 @@ async def send_prompt_async(messages, model):
     try:
         async with aiohttp.ClientSession() as session:
             async with session.post(url, headers=headers, json=data) as response:
+                # 获取响应头中的Set-Cookie
+                cookies = response.headers.get('Set-Cookie')
+                # 如果需要获取accessToken
+                if cookies:
+                    # 可以用正则或字符串处理从cookies中提取accessToken
+                    match = re.search(r'accessToken=([^;]+)', cookies)
+                    if match:
+                        os.environ['ACCESS_TOKEN'] = match.group(1)
                 result = await response.text()
                 response.raise_for_status()
                 # 如果需要，你可以在这里处理响应
@@ -277,7 +287,12 @@ async def chat_completions(
             model_name = model["name"]
 
     os.environ["instanceId"] = rV()
-    os.environ["full_cookie"] = generate_cookie()
+    cookies = generate_cookie()
+    ACCESS_TOKEN = os.getenv("ACCESS_TOKEN", "")
+    if ACCESS_TOKEN:
+        cookies = cookies + f"; accessToken={ACCESS_TOKEN}"
+        # logger.info(cookies)
+    os.environ["full_cookie"] = cookies
     headers = {
         'Accept': 'application/json, text/plain, */*',
         'Accept-Language': 'zh-CN,zh;q=0.9',
