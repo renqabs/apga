@@ -41,9 +41,13 @@ ALLOWED_MODELS = [
     {"id": "claude-3-5-sonnet", "name": "claude-sonnet"},
     {"id": "claude-3-5-haiku", "name": "claude-haiku"},
     {"id": "llama-3.1-70b", "name": "llama-3-70b"},
-    {"id": "llama-3.2-90b-text", "name": "llama-32-90b-text"},
+    {"id": "llama-3.1-nemotron-70b", "name": "llama-nemotron-70b"},
+    {"id": "llama-3.1-openbiollm-70b", "name": "llama-openbiollm-70b"},
     {"id": "llama-3.2-90b-vision", "name": "llama-32-90b-vision"},
     {"id": "mistral-large2", "name": "mistral-large"},
+    {"id": "qwq-32b-preview", "name": "qwq-32b"},
+    {"id": "qwen-2.5-72b", "name": "qwen-72b"},
+    {"id": "qwen-2.5-coder-32b", "name": "qwen-coder-32b"},
 ]
 # 配置CORS
 app.add_middleware(
